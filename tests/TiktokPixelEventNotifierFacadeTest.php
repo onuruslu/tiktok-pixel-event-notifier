@@ -68,7 +68,7 @@ class TiktokPixelEventNotifierFacadeTest extends TestCase
 
         $this->assertEquals(
             $request->getBody()->getContents(),
-            '{"event":"ViewContent","context":{"ip":"127.0.0.1","user_agent":"Chrome"},"pixel_code":"' . $pixelCode . '","test_event_code":"TEST95963"}'
+            '{"event":"ViewContent","context":{"ip":"127.0.0.1","user_agent":"Chrome"},"pixel_code":"'.$pixelCode.'","test_event_code":"TEST95963"}'
         );
     }
 
@@ -83,6 +83,7 @@ class TiktokPixelEventNotifierFacadeTest extends TestCase
             new Response(200, [], $bufferStream),
         ]);
     }
+
     public function testSendShouldThrowExceptionWhenApiResponseCodeNotZero()
     {
         $pixelCode = 'ABC123***';
