@@ -8,7 +8,7 @@ class Ad extends AbstractDto
 {
     protected ?string $callback;
 
-    public function setCallback(string $callback): Ad
+    public function setCallback(string $callback = null): Ad
     {
         $this->callback = $callback;
 

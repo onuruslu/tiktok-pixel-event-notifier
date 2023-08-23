@@ -1,6 +1,7 @@
 {
     "name": "onuruslu/tiktok-pixel-event-notifier",
     "description": "It sends events to Tiktok.",
+    "version": "1.0.0",
     "keywords": [
         "onuruslu",
         "tiktok-pixel-event-notifier"
@@ -41,7 +42,7 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            
+
             "phpstan/extension-installer": true
         }
     },
