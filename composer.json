@@ -1,7 +1,7 @@
 {
     "name": "onuruslu/tiktok-pixel-event-notifier",
     "description": "It sends events to Tiktok.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": [
         "onuruslu",
         "tiktok-pixel-event-notifier"

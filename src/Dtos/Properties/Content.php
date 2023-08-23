@@ -4,7 +4,7 @@ namespace Onuruslu\TiktokPixelEventNotifier\Dtos\Properties;
 
 use Onuruslu\TiktokPixelEventNotifier\Dtos\AbstractDto;
 
-class Contents extends AbstractDto
+class Content extends AbstractDto
 {
     protected ?float $price = null;
 
@@ -18,42 +18,42 @@ class Contents extends AbstractDto
 
     protected ?string $brand = null;
 
-    public function setPrice(float $price): Contents
+    public function setPrice(float $price): Content
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function setQuantity(int $quantity): Contents
+    public function setQuantity(int $quantity): Content
     {
         $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function setContentId(string $contentId): Contents
+    public function setContentId(string $contentId): Content
     {
         $this->contentId = $contentId;
 
         return $this;
     }
 
-    public function setContentCategory(string $contentCategory): Contents
+    public function setContentCategory(string $contentCategory): Content
     {
         $this->contentCategory = $contentCategory;
 
         return $this;
     }
 
-    public function setContentName(string $contentName): Contents
+    public function setContentName(string $contentName): Content
     {
         $this->contentName = $contentName;
 
         return $this;
     }
 
-    public function setBrand(string $brand): Contents
+    public function setBrand(string $brand): Content
     {
         $this->brand = $brand;
 

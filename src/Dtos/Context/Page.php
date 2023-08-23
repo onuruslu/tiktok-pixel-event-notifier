@@ -17,7 +17,7 @@ class Page extends AbstractDto
         return $this;
     }
 
-    public function setReferrer(string $referrer): Page
+    public function setReferrer(string $referrer = null): Page
     {
         $this->referrer = $referrer;
 

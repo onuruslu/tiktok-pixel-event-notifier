@@ -2,7 +2,7 @@
 
 namespace Onuruslu\TiktokPixelEventNotifier\Dtos;
 
-use Onuruslu\TiktokPixelEventNotifier\Dtos\Properties\Contents;
+use Onuruslu\TiktokPixelEventNotifier\Dtos\Properties\Content;
 use Onuruslu\TiktokPixelEventNotifier\Enums\ContentType;
 use Onuruslu\TiktokPixelEventNotifier\Enums\Currency;
 
@@ -10,7 +10,8 @@ class Properties extends AbstractDto
 {
     protected ?ContentType $contentType = null;
 
-    protected ?Contents $contents = null;
+    /** @var array<Content> $contents */
+    protected array $contents = [];
 
     protected ?Currency $currency = null;
 
@@ -29,9 +30,9 @@ class Properties extends AbstractDto
         return $this;
     }
 
-    public function setContents(Contents $contents): Properties
+    public function addContent(Content $content): Properties
     {
-        $this->contents = $contents;
+        $this->contents[] = $content;
 
         return $this;
     }
@@ -73,9 +74,19 @@ class Properties extends AbstractDto
 
     protected function payload(): array
     {
+        $contents = [];
+
+        foreach ($this->contents as $content) {
+            $contents[] = $content->toArray();
+        }
+
+        if (0 >= count($contents)) {
+            $contents = null;
+        }
+
         return [
             'content_type' => $this->contentType?->value,
-            'contents' => $this->contents?->toArray(),
+            'contents' => $contents,
             'currency' => $this->currency?->value,
             'value' => $this->value,
             'query' => $this->query,

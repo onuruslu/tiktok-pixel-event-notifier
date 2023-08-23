@@ -63,8 +63,8 @@ class EventTest extends TestCase
             ->setProperties(
                 Properties::make()
                     ->setContentType(ContentType::PRODUCT)
-                    ->setContents(
-                        Properties\Contents::make()
+                    ->addContent(
+                        Properties\Content::make()
                             ->setPrice(20.56)
                             ->setQuantity(1)
                             ->setContentId('contentId')
@@ -104,12 +104,14 @@ class EventTest extends TestCase
                 'properties' => [
                     'content_type' => 'product',
                     'contents' => [
-                        'price' => 20.56,
-                        'quantity' => 1,
-                        'content_id' => 'contentId',
-                        'content_category' => 'contentCategory',
-                        'content_name' => 'contentName',
-                        'brand' => 'brand',
+                        [
+                            'price' => 20.56,
+                            'quantity' => 1,
+                            'content_id' => 'contentId',
+                            'content_category' => 'contentCategory',
+                            'content_name' => 'contentName',
+                            'brand' => 'brand',
+                        ],
                     ],
                     'currency' => 'TRY',
                     'value' => 123.56,
