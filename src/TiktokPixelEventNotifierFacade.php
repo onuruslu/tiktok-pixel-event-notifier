@@ -17,8 +17,7 @@ class TiktokPixelEventNotifierFacade
         protected string $accessToken,
         protected string $pixelCode,
         protected ?string $testEventCode = null,
-    )
-    {
+    ) {
     }
 
     public static function init(string $accessToken, string $pixelCode, string $testEventCode = null): static
@@ -38,7 +37,7 @@ class TiktokPixelEventNotifierFacade
 
         $payload['pixel_code'] = $this->pixelCode;
 
-        if ( ! is_null($this->testEventCode)) {
+        if (! is_null($this->testEventCode)) {
             $payload['test_event_code'] = $this->testEventCode;
         }
 
@@ -56,7 +55,7 @@ class TiktokPixelEventNotifierFacade
 
         $payload = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
 
-        if ( ! isset($payload['code']) || 0 !== $payload['code']) {
+        if (! isset($payload['code']) || 0 !== $payload['code']) {
             throw new TiktokApiResponseFailException($contents);
         }
 
