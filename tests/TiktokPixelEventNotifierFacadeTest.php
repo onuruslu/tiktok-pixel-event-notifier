@@ -23,14 +23,12 @@ class TiktokPixelEventNotifierFacadeTest extends TestCase
         $accessToken = 'ACCESS_TOKEN';
 
         $event = Event::make()
-            ->setPixelCode($pixelCode)
             ->setEvent(EventType::VIEW_CONTENT)
             ->setContext(
                 Context::make()
                     ->setIp('127.0.0.1')
                     ->setUserAgent('Chrome')
-            )
-            ->setTestEventCode('TEST95963');
+            );
 
         $fakeResponse = '{"code": 0, "message": "OK", "request_id": "202308221528001CE2BBC94574F7569C55", "data": {}}';
 
@@ -46,7 +44,9 @@ class TiktokPixelEventNotifierFacadeTest extends TestCase
 
         TiktokPixelEventNotifierFacade::$config = ['handler' => $handlerStack];
 
-        $response = TiktokPixelEventNotifierFacade::send($event, $accessToken);
+        $facade = TiktokPixelEventNotifierFacade::init($accessToken, $pixelCode, 'TEST95963');
+
+        $response = $facade->send($event);
 
         $this->assertEquals(
             json_decode($fakeResponse, true),
@@ -68,7 +68,7 @@ class TiktokPixelEventNotifierFacadeTest extends TestCase
 
         $this->assertEquals(
             $request->getBody()->getContents(),
-            '{"pixel_code":"' . $pixelCode . '","event":"ViewContent","context":{"ip":"127.0.0.1","user_agent":"Chrome"},"test_event_code":"TEST95963"}'
+            '{"event":"ViewContent","context":{"ip":"127.0.0.1","user_agent":"Chrome"},"pixel_code":"' . $pixelCode . '","test_event_code":"TEST95963"}'
         );
     }
 
@@ -89,14 +89,12 @@ class TiktokPixelEventNotifierFacadeTest extends TestCase
         $accessToken = 'ACCESS_TOKEN';
 
         $event = Event::make()
-            ->setPixelCode($pixelCode)
             ->setEvent(EventType::VIEW_CONTENT)
             ->setContext(
                 Context::make()
                     ->setIp('127.0.0.1')
                     ->setUserAgent('Chrome')
-            )
-            ->setTestEventCode('TEST95963');
+            );
 
         $fakeResponse = '{"code": -1, "message": "FAIL", "request_id": "202308221528001CE2BBC94574F7569C55", "data": {}}';
 
@@ -110,6 +108,8 @@ class TiktokPixelEventNotifierFacadeTest extends TestCase
 
         $this->expectExceptionMessage($fakeResponse);
 
-        TiktokPixelEventNotifierFacade::send($event, $accessToken);
+        $facade = TiktokPixelEventNotifierFacade::init($accessToken, $pixelCode, 'TEST95963');
+
+        $facade->send($event);
     }
 }

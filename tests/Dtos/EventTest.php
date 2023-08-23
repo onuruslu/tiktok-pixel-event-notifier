@@ -15,7 +15,6 @@ class EventTest extends TestCase
     public function testToArrayShouldNotReturnNullValues()
     {
         $event = Event::make()
-            ->setPixelCode('abc123')
             ->setEvent(EventType::VIEW_CONTENT)
             ->setContext(
                 Context::make()
@@ -25,7 +24,6 @@ class EventTest extends TestCase
 
         $this->assertEquals(
             [
-                'pixel_code' => 'abc123',
                 'event' => 'ViewContent',
                 'context' => [
                     'ip' => '127.0.0.1',
@@ -39,7 +37,6 @@ class EventTest extends TestCase
     public function testToArray()
     {
         $event = Event::make()
-            ->setPixelCode('pixelCode')
             ->setEvent(EventType::VIEW_CONTENT)
             ->setEventId('eventId')
             ->setTimestamp(1692712412)
@@ -84,7 +81,6 @@ class EventTest extends TestCase
 
         $this->assertEquals(
             [
-                'pixel_code' => 'pixelCode',
                 'event' => 'ViewContent',
                 'event_id' => 'eventId',
                 'timestamp' => '2023-08-22T13:53:32+00:00',

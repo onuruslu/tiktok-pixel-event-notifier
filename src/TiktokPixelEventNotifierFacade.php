@@ -13,21 +13,42 @@ class TiktokPixelEventNotifierFacade
 
     protected const TIKTOK_PIXEL_API_URL = 'https://business-api.tiktok.com/open_api/v1.3/pixel/track/';
 
+    public function __construct(
+        protected string $accessToken,
+        protected string $pixelCode,
+        protected ?string $testEventCode = null,
+    )
+    {
+    }
+
+    public static function init(string $accessToken, string $pixelCode, string $testEventCode = null): static
+    {
+        return new static($accessToken, $pixelCode, $testEventCode);
+    }
+
     /**
      * @throws GuzzleException
      * @throws TiktokApiResponseFailException
      */
-    public static function send(Event $event, string $accessToken): array
+    public function send(Event $event): array
     {
         $client = new Client(static::$config);
+
+        $payload = $event->toArray();
+
+        $payload['pixel_code'] = $this->pixelCode;
+
+        if ( ! is_null($this->testEventCode)) {
+            $payload['test_event_code'] = $this->testEventCode;
+        }
 
         $response = $client->post(
             static::TIKTOK_PIXEL_API_URL,
             [
                 'headers' => [
-                    'Access-Token' => $accessToken,
+                    'Access-Token' => $this->accessToken,
                 ],
-                'json' => $event->toArray(),
+                'json' => $payload,
             ],
         );
 
